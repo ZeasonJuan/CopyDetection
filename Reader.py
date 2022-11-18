@@ -51,7 +51,7 @@ class Reader:
             re.findall(r'def (.*?):(.*?((?=\ndef)|(?=\n[a-z0-9A-Z])|(?= def)))', whole_string_dict[key], re.S)
         '''
         for key in self.file_java_string:
-            ast = superRe(key)
+            ast = superRe(self.file_java_string[key])
             a_new_dict[key] = ast.getAllIntern('def')
         return a_new_dict
 
