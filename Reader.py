@@ -55,4 +55,4 @@ class Reader:
 
 if __name__ == "__main__":
     have_a_test = Reader("D:\java文件\idea\IdeaCode\RJQXAnalyzation")
-    have_a_test.findClass()
+    have_a_test.findMethod()
