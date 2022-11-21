@@ -25,6 +25,15 @@ def generateControllerGraph(method):
 
 
 def getGraph(lines, node_num, base_node, controllerGraph, all_lines_num):
+    """
+    brief :动态生成图controllerGraph
+    param :lines 方法模块（if、for、while)对应的列表，元素为方法的一行
+           node_num lines的行数
+           base_node lines第一行在原始方法里的行号
+           controllerGraph 动态生成图
+           all_lines_num 总的行数
+    return：none
+    """
     special_logic = ['if', 'while', 'for']
     count = 1  # 当前模块中的偏移地址,第一行已经处理过
     while count < node_num:
@@ -47,6 +56,13 @@ def getGraph(lines, node_num, base_node, controllerGraph, all_lines_num):
 
 
 def getSubLines(lines, node_num, base_node):
+    """
+    brief:获取方法里的子模块(if-elif-else/for/while)
+    param :lines 方法模块对应的列表，元素为方法的一行
+           node_num lines的行数
+           base_node lines第一行在原始方法里的行号
+    return：子模块(if-elif-else/while/for)sub_lines
+    """
     sub_lines = [lines[base_node]]
     head_space_number = getSpaceNumBefore(lines[base_node])
     k = 1
@@ -77,7 +93,7 @@ def getSubLines(lines, node_num, base_node):
 def solveSpecialLogic(sub_lines, base_node, type, controllerGraph, all_lines_num):
     """
     paragm:sub_lines 进行处理的对象
-           node 子模块在原模块中的位置
+           base_node 子模块在原模块中的位置
            len(sub_lines) 子模块的大小
            type 子模块的类型
            controllerGraph 处理结果，传址调用
@@ -160,6 +176,11 @@ def solveSpecialLogic(sub_lines, base_node, type, controllerGraph, all_lines_num
 
 
 def getSpaceNumBefore(line):
+    """
+    brief:获取每一行的缩进格数
+    param:line 一行代码
+    return：line对应的缩进空格数
+    """
     c = re.match(r'^( *?)[a-z0-9A-Z]', line)
     if c is None:
         # print(line)
