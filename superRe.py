@@ -64,7 +64,7 @@ class superRe:
     def how_many_space_before(self, line):
         c = re.match(r'^( *?)[a-z0-9A-Z]', line)
         if c is None:
-            print(line)
+            #print(line)
             return 0
         return len(c.group())-1
 
@@ -94,7 +94,7 @@ class superRe:
 
 if __name__ == "__main__":
     file_str = ''
-    with open("C:\\Users\\19237\\PycharmProjects\\AllHomeWorkInThis\\SoftwareTesting\\Reader.py", "r", encoding="utf-8") as f:
+    with open("D:\\Python_Code\\pythonProject\\alien_invasion\\main.py", "r", encoding="utf-8") as f:
         file_str = f.read()
 
     ast = superRe(file_str)
