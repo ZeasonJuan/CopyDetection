@@ -7,7 +7,6 @@ from superRe import superRe
 class Reader:
     def __init__(self, file_direct):
         self.file_direct = file_direct
-
         self.file_list = self.haveFileList([])
         self.file_java_string = self.havaJavaFileString()
         self.file_dict_which_key_is_path_And_value_is_list_that_has_all_method_separated = self.makeEveryMethod()
@@ -64,11 +63,11 @@ class Reader:
 
 
 if __name__ == "__main__":
-    have_a_test = Reader("C:\\Users\\19237\\PycharmProjects\\AllHomeWorkInThis")
+    have_a_test = Reader("D:\\Python_Code\\pythonProject\\alien_invasion")
     file_string = have_a_test.getJavaFileString()
     the_py_i_want_to_test = ''
     for key in file_string.keys():
-        if key.endswith('myFirstPytorch.py'):
+        if key.endswith('main.py'):
             the_py_i_want_to_test = key
     string_of_this_file = file_string[the_py_i_want_to_test]
 
