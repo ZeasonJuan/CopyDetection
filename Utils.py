@@ -118,11 +118,44 @@ def solveSpecialLogic(sub_lines, base_node, type, controllerGraph, all_lines_num
     elif type == special_logic[1]:
         # TODO
         print("solve while logic")
-
+        set = [base_node+1]  # 指向while的下一句
+        set.append(base_node+len(sub_lines))  # 指向下一个模块
+        controllerGraph[base_node] = set
+        i = 1
+        continue_sub = []  # continue标号
+        break_sub = []
+        while i < len(sub_lines):
+            if sub_lines[i].strip().split(" ")[0] == "continue":
+                continue_sub.append(i)
+            if sub_lines[i].strip().split(" ")[0] == "break":
+                break_sub.append(i)
+            i = i + 1
+        for continue_s in continue_sub:
+            controllerGraph[base_node+continue_s] = [base_node]
+        for break_s in break_sub:
+            controllerGraph[base_node+break_s] = [base_node+len(sub_lines)]
+        controllerGraph[base_node+len(sub_lines)-1] = [base_node]
         getGraph(sub_lines, len(sub_lines), base_node, controllerGraph, all_lines_num)
     elif type == special_logic[2]:
         # TODO
-        print("for")
+        print("solve for logic")
+        set = [base_node + 1]  # 指向for的下一句
+        set.append(base_node + len(sub_lines))  # 指向下一个模块
+        controllerGraph[base_node] = set
+        i = 1
+        continue_sub = []  # continue标号
+        break_sub = []
+        while i < len(sub_lines):
+            if sub_lines[i].strip().split(" ")[0] == "continue":
+                continue_sub.append(i)
+            if sub_lines[i].strip().split(" ")[0] == "break":
+                break_sub.append(i)
+            i = i + 1
+        for continue_s in continue_sub:
+            controllerGraph[base_node + continue_s] = [base_node]
+        for break_s in break_sub:
+            controllerGraph[base_node + break_s] = [base_node + len(sub_lines)]
+        controllerGraph[base_node + len(sub_lines) - 1] = [base_node]
         getGraph(sub_lines, len(sub_lines), base_node, controllerGraph, all_lines_num)
 
 
