@@ -66,7 +66,7 @@ def getSubLines(lines, node_num, base_node):
     sub_lines = [lines[base_node]]
     head_space_number = getSpaceNumBefore(lines[base_node])
     k = 1
-    # 生产子模块['if',"elif", "else", 'while' 'for','return']
+    # 生产子模块['while' 'for']
     while (base_node + k) < node_num:
         if lines[base_node].strip().split(" ")[0] in ["for", "while"]:
             if getSpaceNumBefore(lines[base_node + k]) > head_space_number:
@@ -104,12 +104,21 @@ def solveSpecialLogic(sub_lines, base_node, type, controllerGraph, all_lines_num
         head_space_num = getSpaceNumBefore(sub_lines[0])
         i = 1
         if_sub = []  # if-elif-else的标号
+        # TODO deal with bug as followed
+        """
         while i < len(sub_lines):
             if getSpaceNumBefore(sub_lines[i]) > head_space_num:
                 i = i + 1
             else:
                 if_sub.append(i)
                 i = i + 1
+        """
+        while i < len(sub_lines):
+            if getSpaceNumBefore(sub_lines[i]) > head_space_num:
+                continue
+            else:
+                if_sub.append(i)
+            i = i + 1
         # 处理框架
         if if_sub is None:  # 只有if语句
             set = [base_node + 1]  # if指向下一句
@@ -132,7 +141,6 @@ def solveSpecialLogic(sub_lines, base_node, type, controllerGraph, all_lines_num
             getGraph(sub_lines[start:], len(sub_lines[start:]), base_node + start, controllerGraph, all_lines_num)
 
     elif type == special_logic[1]:
-        # TODO
         print("solve while logic")
         set = [base_node+1]  # 指向while的下一句
         set.append(base_node+len(sub_lines))  # 指向下一个模块
@@ -153,7 +161,6 @@ def solveSpecialLogic(sub_lines, base_node, type, controllerGraph, all_lines_num
         controllerGraph[base_node+len(sub_lines)-1] = [base_node]
         getGraph(sub_lines, len(sub_lines), base_node, controllerGraph, all_lines_num)
     elif type == special_logic[2]:
-        # TODO
         print("solve for logic")
         set = [base_node + 1]  # 指向for的下一句
         set.append(base_node + len(sub_lines))  # 指向下一个模块
