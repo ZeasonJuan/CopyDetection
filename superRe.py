@@ -99,7 +99,7 @@ class superRe:
 
 if __name__ == "__main__":
     file_str = ''
-    with open("C:\\Users\\19237\\PycharmProjects\\AllHomeWorkInThis\\SoftwareTesting\\superRe.py", "r", encoding="utf-8") as f:
+    with open("C:\\Users\\yjl\\Desktop\\CopyDetection\\Utils.py", "r", encoding="utf-8") as f:
         file_str = f.read()
 
     ast = superRe(file_str)
