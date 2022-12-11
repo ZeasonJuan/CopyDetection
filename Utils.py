@@ -16,6 +16,14 @@ def generateControllerGraph(method):
     for i in range(len(lines)):
         if lines[i] == "":
             del lines[i]
+    for i in range(len(lines)):
+        if lines[i].strip().split(" ")[0] in ["for", "while"]:
+            k = 1
+            while i+step < len(lines):
+                if getSpaceNumBefore(lines[i + k]) > getSpaceNumBefore(lines[i]):
+                    k = k + 1
+                else:
+                    lines.insert(i+k, " ")
     controllerGraph = {}
     controllerGraph[0] = [1]
     base_node = 0  # base_node,表示当前模块在起始模块开始的节点
@@ -69,7 +77,7 @@ def getSubLines(lines, node_num, base_node):
     # 生产子模块['while' 'for']
     while (base_node + k) < node_num:
         if lines[base_node].strip().split(" ")[0] in ["for", "while"]:
-            if getSpaceNumBefore(lines[base_node + k]) > head_space_number:
+            if getSpaceNumBefore(lines[base_node + k]) > head_space_number or lines[base_node+k] == " ":
                 sub_lines.append(lines[base_node + k])
                 k = k + 1
             else:
