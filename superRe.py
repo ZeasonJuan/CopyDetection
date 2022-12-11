@@ -20,6 +20,9 @@ class superRe:
         indent_number = 0
         for i in range(len(whole_string_list)):
             this_line = whole_string_list[i]
+            if this_line.strip().endswith("'''") and self.ishead("'''", this_line):
+                print("你好啊你")
+                continue
             if is_note_realm == 1 and not self.ishead("'''", this_line):
                 #print("这里是’‘’的领域啊！！呀咯")
                 continue
@@ -76,6 +79,7 @@ class superRe:
         else:
             return True
 
+
     #判断 astr这个字符串在line中是不是开头
     def ishead(self, astr, line):
         pettern = re.compile(r'^( *?)'+astr)
@@ -87,6 +91,7 @@ class superRe:
     def only_has_space(self, line):
         a = re.match(r'^( *?)$', line)
         if a is None:
+            ''' 我是我是我是测试用的'''
             return False
         return True
 
@@ -94,13 +99,14 @@ class superRe:
 
 if __name__ == "__main__":
     file_str = ''
-    with open("D:\\Python_Code\\pythonProject\\alien_invasion\\main.py", "r", encoding="utf-8") as f:
+    with open("C:\\Users\\yjl\\Desktop\\CopyDetection\\Utils.py", "r", encoding="utf-8") as f:
         file_str = f.read()
 
     ast = superRe(file_str)
     print(ast.string_to_be_processed)
-    print(len(superRe.getAllIntern(ast, 'def')))
-    print(superRe.getAllIntern(ast, 'def'))
+    ali = superRe.getAllIntern(ast, 'def')
+    print(len(ali))
+    print(ali)
 
 
 
