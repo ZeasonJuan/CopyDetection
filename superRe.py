@@ -20,16 +20,17 @@ class superRe:
         indent_number = 0
         for i in range(len(whole_string_list)):
             this_line = whole_string_list[i]
-            if this_line.strip().endswith("'''") and self.ishead("'''", this_line):
-                print("你好啊你")
+            if (this_line.strip().endswith("'''") and self.ishead("'''", this_line)) or (this_line.strip().endswith('"""') and self.ishead('"""', this_line)):
                 continue
-            if is_note_realm == 1 and not self.ishead("'''", this_line):
+            if (is_note_realm == 1 and not self.ishead("'''", this_line)) or (is_note_realm == 2 and not self.ishead('"""', this_line)):
                 #print("这里是’‘’的领域啊！！呀咯")
                 continue
-            if self.ishead("'''", this_line):
+            if self.ishead("'''", this_line) or self.ishead('"""', this_line):
                 #print("这里是:"+str(i)+"is_note_realm在变化之前是"+str(is_note_realm))
-                if is_note_realm == 0:
+                if is_note_realm == 0 and self.ishead("'''", this_line):
                     is_note_realm = 1
+                elif is_note_realm == 0 and self.ishead('"""', this_line):
+                    is_note_realm == 2
                 else:
                     is_note_realm = 0
 
@@ -99,7 +100,7 @@ class superRe:
 
 if __name__ == "__main__":
     file_str = ''
-    with open("C:\\Users\\yjl\\Desktop\\CopyDetection\\Utils.py", "r", encoding="utf-8") as f:
+    with open("C:\\Users\\19237\\PycharmProjects\\AllHomeWorkInThis\\SoftwareTesting\\Utils.py", "r", encoding="utf-8") as f:
         file_str = f.read()
 
     ast = superRe(file_str)
